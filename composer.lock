@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "4aff98770ff6a16be3cb461882e5bab8",
+    "hash": "c6611d40057b223864e3b3829a55171b",
     "packages": [
         {
             "name": "joomla/application",
@@ -468,6 +468,48 @@
             "time": "2014-02-09 07:19:55"
         },
         {
+            "name": "joomla/router",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joomla-framework/router.git",
+                "reference": "050cd389f0ce9e9bb083fa451e7972a2e0d14c68"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joomla-framework/router/zipball/050cd389f0ce9e9bb083fa451e7972a2e0d14c68",
+                "reference": "050cd389f0ce9e9bb083fa451e7972a2e0d14c68",
+                "shasum": ""
+            },
+            "require": {
+                "joomla/controller": "~1.0",
+                "joomla/input": "~1.0",
+                "php": ">=5.3.10"
+            },
+            "require-dev": {
+                "joomla/test": "~1.0"
+            },
+            "type": "joomla-package",
+            "autoload": {
+                "psr-4": {
+                    "Joomla\\Router\\": "src/",
+                    "Joomla\\Router\\Tests\\": "Tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Joomla Router Package",
+            "homepage": "https://github.com/joomla-framework/router",
+            "keywords": [
+                "framework",
+                "joomla",
+                "router"
+            ],
+            "time": "2014-02-09 02:40:41"
+        },
+        {
             "name": "joomla/session",
             "version": "1.1.0",
             "target-dir": "Joomla/Session",
@@ -774,9 +816,9 @@
     "stability-flags": [
 
     ],
-    "platform": [
-
-    ],
+    "platform": {
+        "php": ">=5.4"
+    },
     "platform-dev": [
 
     ]

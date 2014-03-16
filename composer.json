@@ -2,10 +2,12 @@
     "name": "mbabker/renderer-example",
     "description": "Example application for implementing Framework Rendering Interface",
     "require": {
+        "php": ">=5.4",
         "joomla/application": ">=1.1.1",
         "joomla/controller": ">=1.1.1",
         "joomla/model": ">=1.1.1",
-        "joomla/registry": ">1.1.1",
+        "joomla/registry": ">=1.1.1",
+        "joomla/router": ">=1.1.1",
         "mustache/mustache": "~2.0",
         "twig/twig": "~1.0"
     },
@@ -18,7 +20,8 @@
     ],
     "autoload"   : {
         "psr-4": {
-            "BabDev\\": "src/"
+            "BabDev\\": "src/",
+            "Joomla\\Renderer\\": "renderer/"
         }
     }
 }
