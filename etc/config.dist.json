@@ -1,0 +1,7 @@
+{
+	"template": {
+		"renderer": "twig",
+		"path"    : "/absolute/path/to/templates",
+		"debug"   : false
+	}
+}

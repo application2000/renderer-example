@@ -9,6 +9,8 @@
 namespace BabDev\Controller;
 
 use Joomla\Controller\AbstractController;
+use Joomla\DI\Container;
+use Joomla\DI\ContainerAwareInterface;
 use Joomla\Renderer;
 
 /**
@@ -16,8 +18,16 @@ use Joomla\Renderer;
  *
  * @since  1.0
  */
-class DefaultController extends AbstractController
+class DefaultController extends AbstractController implements ContainerAwareInterface
 {
+	/**
+	 * DI Container
+	 *
+	 * @var    Container
+	 * @since  1.0
+	 */
+	private $container;
+
 	/**
 	 * The default view for the application
 	 *
@@ -66,6 +76,18 @@ class DefaultController extends AbstractController
 		{
 			throw new \RuntimeException(sprintf('Error: ' . $e->getMessage()), $e->getCode());
 		}
+	}
+
+	/**
+	 * Get the DI container
+	 *
+	 * @return  Container
+	 *
+	 * @since   1.0
+	 */
+	public function getContainer()
+	{
+		return $this->container;
 	}
 
 	/**
@@ -125,12 +147,36 @@ class DefaultController extends AbstractController
 
 			case 'html' :
 			default :
-				// TODO - Proper config
-				$renderer = new Renderer\Twig;
+				$type = $this->getContainer()->get('config')->get('template.renderer');
+
+				$class = '\\Joomla\\Renderer\\' . ucfirst($type);
+
+				if (!class_exists($renderer))
+				{
+					throw new \RuntimeException(sprintf('Renderer class for renderer type %s not found.', ucfirst($type)));
+				}
+
+				$renderer = new $class;
 
 				break;
 		}
 
 		return $renderer;
+	}
+
+	/**
+	 * Set the DI container
+	 *
+	 * @param   Container  $container  The DI container
+	 *
+	 * @return  mixed
+	 *
+	 * @since   1.0
+	 */
+	public function setContainer(Container $container)
+	{
+		$this->container = $container;
+
+		return $this;
 	}
 }

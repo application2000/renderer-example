@@ -1,0 +1,7 @@
+{
+	"template": {
+		"renderer": "twig",
+		"path"    : "/Applications/MAMP/htdocs/renderer-example/templates",
+		"debug"   : false
+	}
+}

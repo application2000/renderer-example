@@ -24,5 +24,21 @@ if (!file_exists(JPATH_ROOT . '/vendor/autoload.php'))
 
 require JPATH_ROOT . '/vendor/autoload.php';
 
+// Wrap in a try/catch so we can display an error if need be
+try
+{
+	$container = (new Joomla\DI\Container)
+		->registerServiceProvider(new BabDev\Service\ConfigurationProvider);
+}
+catch (\Exception $e)
+{
+	header('HTTP/1.1 500 Internal Server Error', null, 500);
+	echo '<html><head><title>Container Initialization Error</title></head><body><h1>Container Initialization Error</h1><p>An error occurred while creating the DI container: ' . $e->getMessage() . '</p></body></html>';
+
+	exit(500);
+}
+
 // Execute the application
-(new BabDev\Application)->execute();
+(new BabDev\Application)
+	->setContainer($container)
+	->execute();

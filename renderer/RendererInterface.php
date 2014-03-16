@@ -25,5 +25,5 @@ interface RendererInterface
 	 *
 	 * @since   1.0
 	 */
-	public function render($template = '', array $data = array());
+	public function render($template, array $data = array());
 }

@@ -13,19 +13,21 @@ use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\Router\Router;
 
-use Joomla\Status\Model\DefaultModel;
-use Joomla\Status\View\DefaultHtmlView;
-
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
-
 /**
  * Web application class
  *
  * @since  1.0
  */
-final class Application extends AbstractWebApplication
+final class Application extends AbstractWebApplication implements ContainerAwareInterface
 {
+	/**
+	 * DI Container
+	 *
+	 * @var    Container
+	 * @since  1.0
+	 */
+	private $container;
+
 	/**
 	 * Method to run the application routines
 	 *
@@ -45,6 +47,12 @@ final class Application extends AbstractWebApplication
 			// Fetch the controller
 			/* @type  \Joomla\Controller\AbstractController  $controller */
 			$controller = $router->getController($this->get('uri.route'));
+
+			// If the controller is ContainerAware, inject the DI container
+			if ($controller instanceof ContainerAwareInterface)
+			{
+				$controller->setContainer($this->getContainer());
+			}
 
 			// Inject the application into the controller and execute it
 			$controller->setApplication($this)->execute();
@@ -92,6 +100,18 @@ final class Application extends AbstractWebApplication
 	}
 
 	/**
+	 * Get the DI container
+	 *
+	 * @return  Container
+	 *
+	 * @since   1.0
+	 */
+	public function getContainer()
+	{
+		return $this->container;
+	}
+
+	/**
 	 * Custom initialisation method
 	 *
 	 * @return  void
@@ -112,5 +132,21 @@ final class Application extends AbstractWebApplication
 			default :
 				break;
 		}
+	}
+
+	/**
+	 * Set the DI container
+	 *
+	 * @param   Container  $container  The DI container
+	 *
+	 * @return  Application
+	 *
+	 * @since   1.0
+	 */
+	public function setContainer(Container $container)
+	{
+		$this->container = $container;
+
+		return $this;
 	}
 }

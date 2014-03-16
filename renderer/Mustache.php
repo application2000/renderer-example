@@ -25,7 +25,7 @@ class Mustache extends \Mustache_Engine implements RendererInterface
 	 *
 	 * @since   1.0
 	 */
-	public function render($template = '', array $data = array())
+	public function render($template, array $data = array())
 	{
 		return parent::render($template, $data);
 	}
