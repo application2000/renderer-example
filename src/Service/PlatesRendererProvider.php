@@ -10,14 +10,16 @@ namespace BabDev\Service;
 
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\Renderer\Twig;
+use Joomla\Renderer\Plates;
+
+use League\Plates\Engine;
 
 /**
- * Twig renderer service provider
+ * Plates renderer service provider
  *
  * @since  1.0
  */
-class TwigRendererProvider implements ServiceProviderInterface
+class PlatesRendererProvider implements ServiceProviderInterface
 {
 	/**
 	 * Configuration instance
@@ -55,20 +57,10 @@ class TwigRendererProvider implements ServiceProviderInterface
 				/* @type  \Joomla\Registry\Registry  $config */
 				$config = $container->get('config');
 
-				$loader = new \Twig_Loader_Filesystem($config->get('template.path'));
+				$engine = (new Engine($config->get('template.path')))
+					->addFolder('partials', $config->get('template.partials'));
 
-				$renderer = new Twig($loader, $this->config);
-
-				// Set the Lexer object
-				$renderer->setLexer(
-					new \Twig_Lexer($renderer, ['delimiters' => [
-						'tag_comment'  => ['{#', '#}'],
-						'tag_block'    => ['{%', '%}'],
-						'tag_variable' => ['{{', '}}']
-					]])
-				);
-
-				return $renderer;
+				return new Plates($engine);
 			},
 			true,
 			true

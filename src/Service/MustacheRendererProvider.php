@@ -13,7 +13,7 @@ use Joomla\DI\ServiceProviderInterface;
 use Joomla\Renderer\Mustache;
 
 /**
- * Configuration service provider
+ * Mustache renderer service provider
  *
  * @since  1.0
  */
