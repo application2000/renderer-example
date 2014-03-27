@@ -90,7 +90,7 @@ final class Application extends AbstractWebApplication implements ContainerAware
 
 				case 'html' :
 				default :
-					$body = '';
+					$body = $exception->getMessage();
 
 					break;
 			}

@@ -20,6 +20,25 @@ use Joomla\Renderer\Mustache;
 class MustacheRendererProvider implements ServiceProviderInterface
 {
 	/**
+	 * Configuration instance
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	private $config;
+
+	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function __construct(array $config = array())
+	{
+		$this->config = $config;
+	}
+
+	/**
 	 * Registers the service provider with a DI container.
 	 *
 	 * @param   Container  $container  The DI container.

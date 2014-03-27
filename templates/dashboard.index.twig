@@ -1,0 +1,6 @@
+{% extends "index.twig" %}
+
+{% block content %}
+    {% set data = model.getData() %}
+    <p>Hello, I'm {{ data.name }} and I am a {{ data.title }}.</p>
+{% endblock %}

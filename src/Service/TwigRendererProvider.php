@@ -20,6 +20,25 @@ use Joomla\Renderer\Twig;
 class TwigRendererProvider implements ServiceProviderInterface
 {
 	/**
+	 * Configuration instance
+	 *
+	 * @var    array
+	 * @since  1.0
+	 */
+	private $config;
+
+	/**
+	 * Constructor.
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	public function __construct(array $config = array())
+	{
+		$this->config = $config;
+	}
+
+	/**
 	 * Registers the service provider with a DI container.
 	 *
 	 * @param   Container  $container  The DI container.
@@ -38,7 +57,18 @@ class TwigRendererProvider implements ServiceProviderInterface
 
 				$loader = new \Twig_Loader_Filesystem($config->get('template.path'));
 
-				return new Twig($loader);
+				$renderer = new Twig($loader, $this->config);
+
+				// Set the Lexer object
+				$renderer->setLexer(
+					new \Twig_Lexer($renderer, ['delimiters' => [
+						'tag_comment'  => ['{#', '#}'],
+						'tag_block'    => ['{%', '%}'],
+						'tag_variable' => ['{{', '}}']
+					]])
+				);
+
+				return $renderer;
 			},
 			true,
 			true

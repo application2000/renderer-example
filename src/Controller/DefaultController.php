@@ -68,7 +68,9 @@ class DefaultController extends AbstractController implements ContainerAwareInte
 		try
 		{
 			// Render our view.
-			$this->getApplication()->setBody($renderer->render($view . '.' . $layout, ['model' => $model]));
+			$this->getApplication()->setBody(
+				$renderer->render($view . '.' . $layout . $this->getContainer()->get('config')->get('template.extension'), ['model' => $model])
+			);
 
 			return true;
 		}
@@ -149,14 +151,19 @@ class DefaultController extends AbstractController implements ContainerAwareInte
 			default :
 				$type = $this->getContainer()->get('config')->get('template.renderer');
 
-				$class = '\\Joomla\\Renderer\\' . ucfirst($type);
+				// Set the class name for the renderer's service provider
+				$class = '\\BabDev\\Service\\' . ucfirst($type) . 'RendererProvider';
 
+				// Sanity check
 				if (!class_exists($class))
 				{
-					throw new \RuntimeException(sprintf('Renderer class for renderer type %s not found.', ucfirst($type)));
+					throw new \RuntimeException(sprintf('Renderer provider for renderer type %s not found.', ucfirst($type)));
 				}
 
-				$renderer = new $class;
+				// Add the provider to the DI container
+				$this->getContainer()->registerServiceProvider(new $class);
+
+				$renderer = $this->getContainer()->get('renderer');
 
 				break;
 		}
