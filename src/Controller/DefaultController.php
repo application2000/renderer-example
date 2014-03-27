@@ -151,7 +151,7 @@ class DefaultController extends AbstractController implements ContainerAwareInte
 
 				$class = '\\Joomla\\Renderer\\' . ucfirst($type);
 
-				if (!class_exists($renderer))
+				if (!class_exists($class))
 				{
 					throw new \RuntimeException(sprintf('Renderer class for renderer type %s not found.', ucfirst($type)));
 				}
