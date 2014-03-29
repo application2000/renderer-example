@@ -9,8 +9,8 @@
 namespace BabDev\Controller;
 
 use Joomla\Controller\AbstractController;
-use Joomla\DI\Container;
 use Joomla\DI\ContainerAwareInterface;
+use Joomla\DI\ContainerAwareTrait;
 use Joomla\Renderer;
 
 /**
@@ -20,13 +20,7 @@ use Joomla\Renderer;
  */
 class DefaultController extends AbstractController implements ContainerAwareInterface
 {
-	/**
-	 * DI Container
-	 *
-	 * @var    Container
-	 * @since  1.0
-	 */
-	private $container;
+	use ContainerAwareTrait;
 
 	/**
 	 * The default view for the application
@@ -78,18 +72,6 @@ class DefaultController extends AbstractController implements ContainerAwareInte
 		{
 			throw new \RuntimeException(sprintf('Error: ' . $e->getMessage()), $e->getCode());
 		}
-	}
-
-	/**
-	 * Get the DI container
-	 *
-	 * @return  Container
-	 *
-	 * @since   1.0
-	 */
-	public function getContainer()
-	{
-		return $this->container;
 	}
 
 	/**
@@ -169,21 +151,5 @@ class DefaultController extends AbstractController implements ContainerAwareInte
 		}
 
 		return $renderer;
-	}
-
-	/**
-	 * Set the DI container
-	 *
-	 * @param   Container  $container  The DI container
-	 *
-	 * @return  mixed
-	 *
-	 * @since   1.0
-	 */
-	public function setContainer(Container $container)
-	{
-		$this->container = $container;
-
-		return $this;
 	}
 }
