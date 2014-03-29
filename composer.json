@@ -9,6 +9,7 @@
         "joomla/model": ">=1.1.1",
         "joomla/registry": ">=1.1.1",
         "joomla/router": ">=1.1.1",
+        "joomla/view": ">=1.1.1",
         "league/plates": "~1.0",
         "mustache/mustache": "~2.0",
         "twig/twig": "~1.0"

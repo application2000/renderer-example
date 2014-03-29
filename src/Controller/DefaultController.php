@@ -11,7 +11,8 @@ namespace BabDev\Controller;
 use Joomla\Controller\AbstractController;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
-use Joomla\Renderer;
+use Joomla\Renderer\RendererInterface;
+use Joomla\View\ViewInterface;
 
 /**
  * Default controller class for the application
@@ -50,21 +51,13 @@ class DefaultController extends AbstractController implements ContainerAwareInte
 	 */
 	public function execute()
 	{
-		// Initialize the model object
-		$model = $this->initializeModel();
-
-		// Initialize the renderer object
-		$renderer = $this->initializeRenderer();
-
-		$view   = $this->getInput()->getWord('view', $this->defaultView);
-		$layout = $this->getInput()->getWord('layout', 'index');
-
 		try
 		{
+			// Initialize the view object
+			$view = $this->initializeView();
+
 			// Render our view.
-			$this->getApplication()->setBody(
-				$renderer->render($view . '.' . $layout . $this->getContainer()->get('config')->get('template.extension'), ['model' => $model])
-			);
+			$this->getApplication()->setBody($view->render());
 
 			return true;
 		}
@@ -101,55 +94,87 @@ class DefaultController extends AbstractController implements ContainerAwareInte
 		return new $model($this->modelState);
 	}
 
-
 	/**
 	 * Method to initialize the renderer object
 	 *
-	 * @return  mixed  Rendering class based on the request format
+	 * @return  RendererInterface  Renderer object
 	 *
 	 * @since   1.0
 	 * @throws  \RuntimeException
 	 */
 	protected function initializeRenderer()
 	{
-		// Fetch the renderer based on format and application config
-		switch (strtolower($this->getInput()->getWord('format', 'html')))
+		$type = $this->getContainer()->get('config')->get('template.renderer');
+
+		// Set the class name for the renderer's service provider
+		$class = '\\BabDev\\Service\\' . ucfirst($type) . 'RendererProvider';
+
+		// Sanity check
+		if (!class_exists($class))
 		{
-			case 'json' :
-				$view  = ucfirst($this->getInput()->getWord('view', $this->defaultView));
-				$class = '\\BabDev\\View\\' . ucfirst($view) . 'JsonView';
+			throw new \RuntimeException(sprintf('Renderer provider for renderer type %s not found.', ucfirst($type)));
+		}
 
-				// Make sure the view class exists, otherwise revert to the default
-				if (!class_exists($class))
-				{
-					throw new \RuntimeException('A view class was not found for the JSON format.', 500);
-				}
+		// Add the provider to the DI container
+		$this->getContainer()->registerServiceProvider(new $class);
 
-				$renderer = new $class;
+		return $this->getContainer()->get('renderer');
+	}
+
+	/**
+	 * Method to initialize the view object
+	 *
+	 * @return  ViewInterface  View object
+	 *
+	 * @since   1.0
+	 * @throws  \RuntimeException
+	 */
+	protected function initializeView()
+	{
+		// Initialize the model object
+		$model = $this->initializeModel();
+
+		$view   = ucfirst($this->getInput()->getWord('view', $this->defaultView));
+		$format = ucfirst($this->getInput()->getWord('format', 'html'));
+
+		$class = '\\BabDev\\View\\' . $view . $format . 'View';
+
+		// Ensure the class exists, fall back to default otherwise
+		if (!class_exists($class))
+		{
+			$class = '\\BabDev\\View\\Default' . $format . 'View';
+
+			// If we still have nothing, abort mission
+			if (!class_exists($class))
+			{
+				throw new \RuntimeException(sprintf('A view class was not found for the %s view in the %s format.', $view, $format));
+			}
+		}
+
+		// The view classes have different dependencies, switch it from here
+		switch ($format)
+		{
+			case 'Json' :
+				// We can just instantiate the view here
+				$object = new $class($model);
 
 				break;
 
-			case 'html' :
-			default :
-				$type = $this->getContainer()->get('config')->get('template.renderer');
+			case 'Html' :
+			default     :
+				// HTML views require a renderer object too, fetch it
+				$renderer = $this->initializeRenderer();
 
-				// Set the class name for the renderer's service provider
-				$class = '\\BabDev\\Service\\' . ucfirst($type) . 'RendererProvider';
+				// Instantiate the view now
+				/* @type  \BabDev\View\AbstractHtmlView  $object */
+				$object = new $class($model, $renderer);
 
-				// Sanity check
-				if (!class_exists($class))
-				{
-					throw new \RuntimeException(sprintf('Renderer provider for renderer type %s not found.', ucfirst($type)));
-				}
-
-				// Add the provider to the DI container
-				$this->getContainer()->registerServiceProvider(new $class);
-
-				$renderer = $this->getContainer()->get('renderer');
+				// We need to set the layout too
+				$object->setLayout(strtolower($view) . '.' . strtolower($this->getInput()->getWord('layout', 'index')));
 
 				break;
 		}
 
-		return $renderer;
+		return $object;
 	}
 }

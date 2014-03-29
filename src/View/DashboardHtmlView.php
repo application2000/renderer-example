@@ -10,14 +10,12 @@ namespace BabDev\View;
 
 use BabDev\Model\DefaultModel;
 
-use Joomla\View\AbstractView;
-
 /**
- * JSON view class for the Dashboard
+ * Html view class for the Dashboard
  *
  * @since  1.0
  */
-class DashboardJsonView extends AbstractView
+class DashboardHtmlView extends AbstractHtmlView
 {
 	/**
 	 * Redeclared model object for proper typehinting
@@ -36,8 +34,8 @@ class DashboardJsonView extends AbstractView
 	 */
 	public function render()
 	{
-		$output = $this->model->getData();
+		$this->setData(['data' => $this->model->getData()]);
 
-		return json_encode($output);
+		return parent::render();
 	}
 }

@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "7dc78c6e98bfabd7d0e32ae7917e1f07",
+    "hash": "53a7d7f3105e032934d0067c1d7ef947",
     "packages": [
         {
             "name": "joomla/application",
@@ -742,6 +742,48 @@
                 "utilities"
             ],
             "time": "2014-02-09 02:57:39"
+        },
+        {
+            "name": "joomla/view",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/joomla-framework/view.git",
+                "reference": "4f368e317921f580a455adc3b95b3423e53ea8e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/joomla-framework/view/zipball/4f368e317921f580a455adc3b95b3423e53ea8e8",
+                "reference": "4f368e317921f580a455adc3b95b3423e53ea8e8",
+                "shasum": ""
+            },
+            "require": {
+                "joomla/filesystem": "~1.0",
+                "joomla/model": "~1.0",
+                "php": ">=5.3.10"
+            },
+            "require-dev": {
+                "joomla/test": "~1.0"
+            },
+            "type": "joomla-package",
+            "autoload": {
+                "psr-4": {
+                    "Joomla\\View\\": "src/",
+                    "Joomla\\View\\Tests\\": "Tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Joomla View Package",
+            "homepage": "https://github.com/joomla-framework/view",
+            "keywords": [
+                "framework",
+                "joomla",
+                "view"
+            ],
+            "time": "2014-02-09 07:07:32"
         },
         {
             "name": "league/plates",

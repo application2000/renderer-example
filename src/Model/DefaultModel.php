@@ -17,6 +17,13 @@ use Joomla\Model\AbstractModel;
  */
 class DefaultModel extends AbstractModel
 {
+	/**
+	 * Retrieves the data for the view
+	 *
+	 * @return  array
+	 *
+	 * @since   1.0
+	 */
 	public function getData()
 	{
 		return [
