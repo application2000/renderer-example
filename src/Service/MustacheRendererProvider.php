@@ -8,9 +8,10 @@
 
 namespace BabDev\Service;
 
+use BabDev\Renderer\MustacheRenderer;
+
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\Renderer\Mustache;
 
 /**
  * Mustache renderer service provider
@@ -64,7 +65,7 @@ class MustacheRendererProvider implements ServiceProviderInterface
 
 				$options = array_merge($options, $this->config);
 
-				return new Mustache($options);
+				return new MustacheRenderer($options);
 			},
 			true,
 			true

@@ -8,10 +8,11 @@
 
 namespace BabDev\Controller;
 
+use BabDev\Renderer\RendererInterface;
+
 use Joomla\Controller\AbstractController;
 use Joomla\DI\ContainerAwareInterface;
 use Joomla\DI\ContainerAwareTrait;
-use Joomla\Renderer\RendererInterface;
 use Joomla\View\ViewInterface;
 
 /**

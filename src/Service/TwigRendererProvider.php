@@ -8,9 +8,10 @@
 
 namespace BabDev\Service;
 
+use BabDev\Renderer\TwigRenderer;
+
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\Renderer\Twig;
 
 /**
  * Twig renderer service provider
@@ -57,7 +58,7 @@ class TwigRendererProvider implements ServiceProviderInterface
 
 				$loader = new \Twig_Loader_Filesystem($config->get('template.path'));
 
-				$renderer = new Twig($loader, $this->config);
+				$renderer = new TwigRenderer($loader, $this->config);
 
 				// Set the Lexer object
 				$renderer->setLexer(

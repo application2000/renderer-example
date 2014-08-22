@@ -8,9 +8,10 @@
 
 namespace BabDev\Service;
 
+use BabDev\Renderer\PlatesRenderer;
+
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\Renderer\Plates;
 
 use League\Plates\Engine;
 
@@ -60,7 +61,7 @@ class PlatesRendererProvider implements ServiceProviderInterface
 				$engine = (new Engine($config->get('template.path')))
 					->addFolder('partials', $config->get('template.partials'));
 
-				return new Plates($engine);
+				return new PlatesRenderer($engine);
 			},
 			true,
 			true
