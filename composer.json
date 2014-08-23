@@ -11,7 +11,7 @@
         "joomla/registry": ">=1.1.1",
         "joomla/router": ">=1.1.1",
         "joomla/view": ">=1.1.1",
-        "league/plates": "~1.0",
+        "league/plates": "~2.0",
         "mustache/mustache": "~2.0",
         "twig/twig": "~1.0"
     },

@@ -58,10 +58,12 @@ class PlatesRendererProvider implements ServiceProviderInterface
 				/* @type  \Joomla\Registry\Registry  $config */
 				$config = $container->get('config');
 
-				$engine = (new Engine($config->get('template.path')))
-					->addFolder('partials', $config->get('template.partials'));
+				//$engine = (new Engine($config->get('template.path')))
+				//	->addFolder('partials', $config->get('template.partials'));
 
-				return new PlatesRenderer($engine);
+				$renderer = new PlatesRenderer($config['template']);
+				$renderer->addFolder('partials', $config->get('template.partials'));
+				return $renderer;
 			},
 			true,
 			true
