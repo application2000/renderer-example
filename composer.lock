@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8893ad6e0868319ba195d31c444efbb9",
+    "hash": "d80da1b03a59d9b3da67712575c4aa6d",
     "packages": [
         {
             "name": "babdev/renderer",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/BabDev/renderer.git",
-                "reference": "acc92b489e83e4fc8e6786dc04b9617d784be93d"
+                "reference": "9db366cd34ee873db31a859a25f3c22b2eb1ef59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BabDev/renderer/zipball/acc92b489e83e4fc8e6786dc04b9617d784be93d",
-                "reference": "acc92b489e83e4fc8e6786dc04b9617d784be93d",
+                "url": "https://api.github.com/repos/BabDev/renderer/zipball/9db366cd34ee873db31a859a25f3c22b2eb1ef59",
+                "reference": "9db366cd34ee873db31a859a25f3c22b2eb1ef59",
                 "shasum": ""
             },
             "require": {
@@ -26,6 +26,7 @@
             "require-dev": {
                 "league/plates": "~1.0",
                 "mustache/mustache": "~2.0",
+                "squizlabs/php_codesniffer": "1.*",
                 "twig/twig": "~1.0"
             },
             "suggest": {
@@ -51,7 +52,7 @@
                 "php",
                 "renderer"
             ],
-            "time": "2014-04-10 13:16:36"
+            "time": "2014-08-22 23:09:35"
         },
         {
             "name": "joomla/application",
@@ -755,16 +756,16 @@
         },
         {
             "name": "league/plates",
-            "version": "1.2.1",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/plates.git",
-                "reference": "f07800f916133f3767057f2518380211241215aa"
+                "reference": "814f7005134187d769bd9df74a40d345d675cd04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/plates/zipball/f07800f916133f3767057f2518380211241215aa",
-                "reference": "f07800f916133f3767057f2518380211241215aa",
+                "url": "https://api.github.com/repos/thephpleague/plates/zipball/814f7005134187d769bd9df74a40d345d675cd04",
+                "reference": "814f7005134187d769bd9df74a40d345d675cd04",
                 "shasum": ""
             },
             "require-dev": {
@@ -796,7 +797,7 @@
                 "package",
                 "templating"
             ],
-            "time": "2014-02-20 16:17:35"
+            "time": "2014-04-02 19:15:11"
         },
         {
             "name": "mustache/mustache",
@@ -939,8 +940,12 @@
             "time": "2014-07-05 12:19:05"
         }
     ],
-    "packages-dev": [],
-    "aliases": [],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "babdev/renderer": 20
@@ -949,5 +954,7 @@
     "platform": {
         "php": ">=5.4"
     },
-    "platform-dev": []
+    "platform-dev": [
+
+    ]
 }

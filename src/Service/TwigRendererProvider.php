@@ -55,10 +55,7 @@ class TwigRendererProvider implements ServiceProviderInterface
 			function (Container $container) {
 				/* @type  \Joomla\Registry\Registry  $config */
 				$config = $container->get('config');
-
-				$loader = new \Twig_Loader_Filesystem($config->get('template.path'));
-
-				$renderer = new TwigRenderer($loader, $this->config);
+				$renderer = new TwigRenderer($config['template']);
 
 				// Set the Lexer object
 				$renderer->setLexer(
